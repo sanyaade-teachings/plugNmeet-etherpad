@@ -13,6 +13,8 @@ jobs:
           TAG_NAME=$(curl -sL https://api.github.com/repos/ether/etherpad-lite/releases/latest | jq -r ".tag_name")
           echo ::set-output name=release_tag::$TAG_NAME
           echo $TAG_NAME > etherpad-versions/current.txt
+          ## update Dockerfile
+          sed -i "s|etherpad\/etherpad:.*|etherpad\/etherpad:$TAG_NAME|g" Dockerfile
       - name: Check for modified files
         id: git-check
         run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
