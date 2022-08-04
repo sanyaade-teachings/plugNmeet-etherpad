@@ -1,6 +1,6 @@
 FROM etherpad/etherpad:1.8.17
 
-ARG ETHERPAD_PLUGINS="ep_disable_chat ep_sticky_attributes"
+ARG ETHERPAD_PLUGINS="ep_disable_chat ep_sticky_attributes ep_themes"
 
 USER root
 RUN export DEBIAN_FRONTEND=noninteractive; \
