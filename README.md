@@ -4,6 +4,6 @@ Custom build for [plugNmeet-install](https://github.com/mynaparrot/plugNmeet-ins
 
 **What extra?**
 
-Plugins: ep_disable_chat ep_sticky_attributes
+Plugins: ep_disable_chat ep_sticky_attributes ep_themes
 
 Office: libreoffice
