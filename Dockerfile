@@ -1,6 +1,6 @@
 FROM etherpad/etherpad:1.9.1
 
-ARG ETHERPAD_PLUGINS="ep_disable_chat ep_sticky_attributes ep_themes"
+ARG ETHERPAD_PLUGINS="ep_sticky_attributes ep_themes"
 
 USER root
 RUN export DEBIAN_FRONTEND=noninteractive; \
@@ -9,7 +9,7 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN npm install --no-save --legacy-peer-deps ${ETHERPAD_PLUGINS} && \
+RUN npm install --package-lock-only --no-save --legacy-peer-deps -C src ${ETHERPAD_PLUGINS} && \
     rm -rf ~/.npm
 
 USER etherpad
