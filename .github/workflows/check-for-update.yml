@@ -11,13 +11,13 @@ jobs:
         id: fetch-version
         run: |
           TAG_NAME=$(curl -sL https://api.github.com/repos/ether/etherpad-lite/releases/latest | jq -r ".tag_name")
-          echo ::set-output name=release_tag::$TAG_NAME
+          echo name=release_tag::$TAG_NAME >> $GITHUB_OUTPUT
           echo $TAG_NAME > etherpad-versions/current.txt
           ## update Dockerfile
           sed -i "s|etherpad\/etherpad:.*|etherpad\/etherpad:$TAG_NAME|g" Dockerfile
       - name: Check for modified files
         id: git-check
-        run: echo ::set-output name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true")
+        run: echo name=modified::$([ -z "`git status --porcelain`" ] && echo "false" || echo "true") >> $GITHUB_OUTPUT
       - name: Create Pull Request
         if: steps.git-check.outputs.modified == 'true'
         uses: peter-evans/create-pull-request@v4
