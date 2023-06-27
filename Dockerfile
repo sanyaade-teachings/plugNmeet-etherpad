@@ -1,4 +1,4 @@
-FROM etherpad/etherpad:v1.9.0
+FROM etherpad/etherpad:1.9.0
 
 ARG ETHERPAD_PLUGINS="ep_disable_chat ep_sticky_attributes ep_themes"
 
