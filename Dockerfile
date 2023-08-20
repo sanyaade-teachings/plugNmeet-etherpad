@@ -1,15 +1,13 @@
-FROM etherpad/etherpad:1.8.18
+FROM etherpad/etherpad:1.9.2
 
-ARG ETHERPAD_PLUGINS="ep_disable_chat ep_sticky_attributes ep_themes"
+ARG ETHERPAD_PLUGINS="ep_sticky_attributes ep_themes"
 
 USER root
-RUN export DEBIAN_FRONTEND=noninteractive; \
-    apt-get -qq update && \
-    apt-get -qq --no-install-recommends install libreoffice && \
-    apt-get -qq clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk add --no-cache libreoffice libreoffice-common && \
+    rm -rf /var/cache/apk/*
 
-RUN npm install --no-save --legacy-peer-deps ${ETHERPAD_PLUGINS} && \
+RUN npm install --package-lock-only --no-save --legacy-peer-deps -C src ${ETHERPAD_PLUGINS} && \
     rm -rf ~/.npm
 
 USER etherpad
