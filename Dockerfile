@@ -1,4 +1,4 @@
-FROM etherpad/etherpad:1.9.7
+FROM etherpad/etherpad:2.0.1
 
 ARG ETHERPAD_PLUGINS="ep_sticky_attributes ep_themes"
 
@@ -7,7 +7,7 @@ RUN apk update && \
     apk add --no-cache libreoffice libreoffice-common && \
     rm -rf /var/cache/apk/*
 
-RUN npm install --package-lock-only --no-save --legacy-peer-deps -C src ${ETHERPAD_PLUGINS} && \
-    rm -rf ~/.npm
+RUN bin/installDeps.sh && rm -rf ~/.npm && pnpm run install-plugins ${ETHERPAD_PLUGINS}
+RUN chown etherpad:etherpad -R .
 
 USER etherpad
