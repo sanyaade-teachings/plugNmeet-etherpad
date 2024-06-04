@@ -1,4 +1,4 @@
-FROM etherpad/etherpad:2.0.3
+FROM etherpad/etherpad:2.1.0
 
 ARG ETHERPAD_PLUGINS="ep_sticky_attributes ep_themes"
 
