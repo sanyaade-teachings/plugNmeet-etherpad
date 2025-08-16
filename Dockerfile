@@ -16,5 +16,12 @@ RUN pnpm run install-plugins ${ETHERPAD_PLUGINS} && \
     pnpm store prune && \
     chown -R etherpad:etherpad .
 
+# Patch the OIDC provider to correctly handle the 'resource' parameter (RFC 8707).
+# This ensures the token's 'audience' is set to the requested resource.
+RUN sed -i \
+    -e "s/audience: 'account',/audience: resourceIndicator,/" \
+    -e 's/scope: "openid",/scope: client.scope || "openid",/' \
+    /opt/etherpad-lite/src/node/security/OAuth2Provider.ts
+
 # Switch back to the non-root user to run the application
 USER etherpad
