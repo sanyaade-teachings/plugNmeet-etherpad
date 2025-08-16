@@ -1,6 +1,6 @@
 FROM etherpad/etherpad:2.4.2
 
-ARG ETHERPAD_PLUGINS="ep_sticky_attributes ep_themes"
+ARG ETHERPAD_PLUGINS="ep_sticky_attributes"
 
 # Switch to root to install system packages
 USER root
